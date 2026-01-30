@@ -1,0 +1,244 @@
+/* Tailwind가 대부분 처리하므로 Custom CSS는 최소화 */
+
+/* 필터 칩 버튼 스타일 */
+.filter-chip {
+    padding: 8px 16px;
+    border-radius: 999px;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+}
+
+
+.filter-chip:hover {
+    background-color: #f9fafb;
+}
+
+/* 활성화 상태 */
+.filter-chip.active-best { background: #fff7ed; color: #ea580c; border-color: #fdba74; }
+.filter-chip.active-ev { background: #f0fdf4; color: #16a34a; border-color: #86efac; }
+.filter-chip.active-gas { background: #eff6ff; color: #2563eb; border-color: #93c5fd; }
+
+/* 애니메이션 */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* 타임라인 노드 스타일 */
+.timeline-item {
+    position: relative;
+    padding-left: 60px; /* 모바일 기준 */
+}
+
+/* 데스크탑(md) 이상에서는 중앙 정렬 효과를 위해 */
+@media (min-width: 768px) {
+    .timeline-item {
+        padding-left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    
+    /* 카드 너비 */
+    .timeline-card-wrapper {
+        width: 45%; 
+    }
+    
+
+    /* 중앙 점 위치 조정 */
+    .timeline-dot {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* 모바일 전용 점 위치 */
+@media (max-width: 767px) {
+    .timeline-dot {
+        position: absolute;
+        left: 32px; /* left-8 */
+        top: 24px;
+        transform: translateX(-50%);
+    }
+}
+
+/* 시설 아이콘 활성화 */
+.facility-active {
+    background-color: #dbeafe !important; /* blue-100 */
+    color: #2563eb !important; /* blue-600 */
+    font-weight: bold;
+}
+
+/* style.css 수정본 */
+
+/* 1. 타임라인 전체 컨테이너와 세로선 */
+#rest-list {
+    position: relative;
+    padding: 2rem 0;
+    border-left: none !important;
+}
+
+/* 세로선: 모든 화면 크기에서 동일한 기준점(left: 32px)을 가집니다. */
+#rest-list::before {
+    content: '';
+    position: absolute;
+    left: 32px; 
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #e5e7eb;
+    z-index: 0;
+    transform: translateX(-50%); /* 선 자체를 중앙으로 1px 보정 */
+}
+
+/* 768px 이상(데스크톱)에서는 세로선 숨기기 */
+
+
+/* 2. 타임라인 개별 아이템 레이아웃 */
+.timeline-item {
+    position: relative;
+    width: 100%;
+    margin-bottom: 2rem;
+    padding-left: 64px; /* 선과 점이 있을 공간 확보 (32px * 2) */
+    z-index: 2;
+}
+
+@media (min-width: 768px) {
+    .timeline-item {
+        padding-left: 0;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* 점(Dot) 디자인: 선의 위치(left: 32px)와 정확히 일치시킵니다. */
+.timeline-dot {
+    position: absolute;
+    left: 32px; /* 선의 left 값과 동일하게 설정 */
+    top: 14px;
+    width: 16px;
+    height: 16px;
+    background-color: #3b82f6;
+    border: 4px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 20;
+    transform: translateX(-50%); /* 점의 중심을 선의 중심에 맞춤 */
+}
+
+/* 데스크탑(md) 이상에서도 왼쪽 정렬 유지 (중앙 정렬을 원하시면 주석 처리된 부분을 사용하세요) */
+@media (min-width: 768px) {
+    .timeline-item {
+        /* 넓은 화면에서도 선과 점이 왼쪽에 고정되도록 display: block 유지 */
+        display: block; 
+        padding-left: 80px; /* 데스크탑에서는 여백을 조금 더 줌 */
+    }
+    
+    #rest-list::before {
+        left: 40px; /* 데스크탑 기준 선 위치 */
+    }
+    
+    .timeline-dot {
+        left: 40px; /* 데스크탑 기준 점 위치 */
+    }
+}
+
+/* 시작/종료 지점 점 색상 커스텀 */
+.timeline-item:first-child .timeline-dot { background-color: #ef4444; } /* red-500 */
+.timeline-item:last-child .timeline-dot { background-color: #6b7280; }  /* gray-500 */
+
+
+/* 카드 너비 제한 (데스크톱) */
+.timeline-card-wrapper {
+    width: 100%;
+    max-width: 550px;
+}
+
+/* 카드 내 시설물 아이콘 컨테이너 */
+.timeline-card-wrapper i {
+    stroke-width: 2.5px; /* 아이콘 선 두께 조절 */
+}
+
+/* 카드가 호버될 때 아이콘 색상이 살짝 진해지도록 */
+.timeline-card-wrapper div:hover .text-gray-400 {
+    color: #9ca3af; 
+}
+
+/* 시설물 구분선 스타일 */
+.border-t.border-gray-50 {
+    border-top: 1px solid #f9fafb;
+}
+
+.rest-card-inner {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    border: 1px solid #f3f4f6;
+    transition: transform 0.2s;
+}
+
+.rest-card-inner:hover {
+    transform: translateY(-2px);
+}
+
+#rest-modal span, #rest-modal p, #rest-modal h2 {
+    color: inherit; /* 부모의 색상을 따르도록 설정 */
+    word-break: keep-all; /* 단어 단위 줄바꿈 방지 */
+}
+
+/* 비활성화된 시설 아이콘을 흑백 처리 */
+#rest-modal div[id^="fac-"].text-gray-300 i {
+    filter: grayscale(1);
+}
+
+/* 활성화된 시설은 약간의 입체감 부여 */
+#rest-modal div.text-blue-600 {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+/* Lucide 아이콘 중앙 정렬 보정 */
+[data-lucide] {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 모달이 뜰 때 레이아웃 깨짐 방지 */
+#rest-modal .grid, #rest-modal .flex {
+    width: 100%;
+}
+
+/* 드롭박스 항목 내부 간격 조정 */
+[id^="autocomplete-"] div {
+    padding: 8px 12px; /* 상하 패딩을 조금 줄임 */
+    cursor: pointer;
+    border-bottom: 1px solid #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 장소 이름 (검정 글자) */
+[id^="autocomplete-"] .font-bold {
+    line-height: 1.2; /* 줄 간격 축소 */
+    margin-bottom: 2px; /* 아래 주소와의 간격 */
+}
+
+/* 주소 (회색 글자) */
+[id^="autocomplete-"] .text-gray-400 {
+    line-height: 1.1; /* 줄 간격 축소 */
+    margin-top: 0px;  /* 위쪽 간격 제거 */
+}
